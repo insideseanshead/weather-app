@@ -1,13 +1,13 @@
-//TODO: create variables that will be reused througout app.
-//API key.
+//variables that will be reused througout app.
+
 
 var key = "c2a8bcbf463282491b7f6924b3b7eb8a";
 var city = "";
 var lat = "";
 var lon = "";
 
-//TODO: Create ajax request for open weather API and make request to search for specific information.
-
+//ajax request for open weather API and make request to search for specific information.
+//click event
 $("#cityBtn").on("click", function (event) {
   event.preventDefault();
 
@@ -16,7 +16,7 @@ $("#cityBtn").on("click", function (event) {
   //url to query open weather database.
   var queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + key;
-
+//ajax request for open weather API and make request to search for specific information.
   $.ajax({
     url: queryURL,
     method: "GET",
@@ -52,40 +52,49 @@ $("#cityBtn").on("click", function (event) {
 
     lat = response.coord.lat;
     lon = response.coord.lon;
-  });
 
-  var queryURLForcast = "https://api.openweathermap.org/data/2.5/forecast?q=" +city+ "&units=imperial&appid=" + key;
-  
+    var queryURLForcast = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,alerts&units=imperial&appid=" + key;
+
+    
+  //Create five day forcast
   $.ajax({
       url: queryURLForcast,
       method: "GET"
   })
   .then(function (response) {
       console.log(response)
+
+      var uvi = $("<p>");
+      uvi.text("UVI: "+ response.current.uvi)
+      currentCity.append(uvi);
+
       var fiveDayH = $("<h5>");
       fiveDayH.text("5-Day Forcast:")
       $(".fiveDay").append(fiveDayH)
 
-      for(i=0; i<=30; i+6){
+      for(i=1; i<6; i++){
         var forcast = $("<div>");
         forcast.addClass("col s2 blue lighten-3")
         $(".fiveDay").append(forcast)
 
         var fiveDate = $("<h6>");
-        fiveDate.text(response.list[i].dt_txt)
+        fiveDate.text(response.daily[i].dt)
         forcast.append(fiveDate)
 
         var fiveDayTemp = $("<p>");
-        fiveDayTemp.text("temp: " + response.list[i].main.temp)
+        fiveDayTemp.text("temp: " + response.daily[i].temp.day)
         forcast.append(fiveDayTemp);
 
         var fiveDayHumid = $("<p>");
-        fiveDayHumid.text("temp: " + response.list[i].main.humidity)
+        fiveDayHumid.text("temp: " + response.daily[i].humidity)
         forcast.append(fiveDayHumid);
       }
   })
+  });
+
+
 });
-//TODO:Create click event
+
 
 //TODO: tie function to button to search for city.
 
@@ -97,7 +106,6 @@ $("#cityBtn").on("click", function (event) {
 
 //TODO: populate page with this information on page.
 
-//TODO: Present a five day forcast for the city. Each day should display date, icon of weather, temp and humidity.
 
 //TODO: populate dashboard with this information.
 
