@@ -3,9 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Weather</title>
 </head>
 <body>
     
+    <div class="row header grey darken-2">
+        <h1 class="center">Weather Dashboard</h1>
+    </div>
+    <div class="row main">
+        <div class="col s3 grey lighten-3">
+            <div class="row">
+                <h4>Search for a City:</h4>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s12">
+                        <input placeholder="City Name" id="cityInput" type="text" class="validate">
+                    </div>
+                    <div><button id="cityBtn">Search</button></div>
+                    <!-- <a class="col s3 waves-effect waves-light btn" id="cityBtn">Search</a> -->
+                </div><!--end col-->
+            </div><!--End Row-->
+            <div class="row" id="cityList"></div>
+        </div><!--end col-->
+        <div class="col s9">
+            <div class="current"></div>
+            <div class="forcast"></div>
+            <div class="fiveDay"></div>
+        </div><!--end col-->
+    </div>
+    <!--Javascript links-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
